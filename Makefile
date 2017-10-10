@@ -1,17 +1,17 @@
 # makefie
-all: fork_ex thread_ex summation
+all: binaries mandelbrot.png
 
-fork_ex: fork_ex.c
-	cc -o fork_ex fork_ex.c
+binaries: fork_ex thread_ex summation mandelbrot
 
-thread_ex: thread_ex.c
-	cc -o thread_ex thread_ex.c -pthread
+% : %.c
+	cc -g -pthread -o $* $<
 
-summation: summation.c
-	cc -o summation summation.c -pthread
+mandelbrot.png: mandelbrot
+	PATH=.:$(PATH) mandelbrot | convert txt:- mandelbrot.png
 
 .PHONY: clean
 clean:
 	rm -f thread_ex
 	rm -f fork_ex
 	rm -f summation
+	rm -f mandelbrot
