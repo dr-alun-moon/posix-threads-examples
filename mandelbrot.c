@@ -12,12 +12,12 @@
 /* some global variables for scaling and size */
 unsigned int  width = 512;
 unsigned int height = 512;
-unsigned int  depth = 1023;
+unsigned int  depth = 255;
 
-double minX =  0.0;
-double maxX =  0.50;
-double minY = -0.60;
-double maxY =  0.000;
+double minX = -1;
+double maxX = -0.9;
+double minY =  0.24;
+double maxY =  0.34;
 double epsilon = 0.0001;
 
 /* type for passing tile information to thread */
@@ -44,7 +44,10 @@ unsigned int mandelbrot_escape(double x0, double y0, unsigned int limit) {
 		xnew = x*x - y*y + x0;
 		ynew = 2*x*y + y0;
 		if ( (xnew*xnew + ynew*ynew) > 4.0 ) break;
-		if ( fabs(xnew-x)<epsilon && fabs(ynew-y)<epsilon ) n = limit;
+		if ( fabs(xnew-x)<epsilon && fabs(ynew-y)<epsilon ) {
+			n = limit;
+			break;
+		}
 		x = xnew;
 		y = ynew;
     }
@@ -55,7 +58,6 @@ unsigned int mandelbrot_escape(double x0, double y0, unsigned int limit) {
 void *mandelbrot_tile(void *par) {
     tile_t *tile = (tile_t *)par;
    unsigned int x, y;
-	fprintf(stderr, "tile %u %u %u %u\n", tile->x_min, tile->x_max, tile->y_min, tile->y_max);
     for (x = tile->x_min; x < tile->x_max; x++) {
 		for (y = tile->y_min; y < tile->y_max; y++) {
 	    	double xx = map(x, 0, width, minX, maxX);
@@ -97,7 +99,8 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	for( t=0 ; t<Ntiles ; t++ ){
-		void *tile;
-		pthread_join(Worker[t],&tile);
+		void *retval;
+		pthread_join(Worker[t],&retval);
+		free(retval);
 	}
 }
