@@ -10,8 +10,8 @@
 #include <pthread.h>
 
 /* some global variables for scaling and size */
-unsigned int  width = 512;
-unsigned int height = 512;
+unsigned int  width = 1024;
+unsigned int height = 1024;
 unsigned int  depth = 255;
 
 double minX = -1;
@@ -19,6 +19,8 @@ double maxX = -0.9;
 double minY =  0.24;
 double maxY =  0.34;
 double epsilon = 0.0001;
+
+unsigned int cuts=4;
 
 /* type for passing tile information to thread */
 typedef struct {
@@ -70,7 +72,6 @@ void *mandelbrot_tile(void *par) {
     return par;
 }
 
-unsigned int cuts=2;
 int main(int argc, char *argv[]) {
 	unsigned int slices = pow(2,cuts);
 	int Ntiles = (slices)*(slices);
