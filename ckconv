@@ -1,0 +1,6 @@
+#!/bin/bash
+if ! which convert
+then
+sudo apt -q -y install imagemagick
+fi
+

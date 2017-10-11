@@ -1,0 +1,17 @@
+#!/bin/bash
+ckconv
+
+if [ ! -f mandelbrot ] ;then
+cc -o mandelbrot mandelbrot.c -lm -pthread
+fi
+
+mandelbrot | convert txt:- mandelbrot.png
+
+if [ ! -f colourmap.png ] ; then
+convert xc:black xc:red xc:yellow xc:green1 \
+		xc:cyan xc:blue xc:black +append \
+		-filter Cubic -resize 256x1\! colourmap.png 
+fi
+
+convert mandelbrot.png \( colourmap.png \) -clut colour-mandelbrot.png
+
