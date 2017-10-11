@@ -1,5 +1,5 @@
 #!/bin/bash
-if ! which convert
+if ! which convert > /dev/null
 then
 sudo apt -q -y install imagemagick
 fi
