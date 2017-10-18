@@ -10,9 +10,9 @@ The program `mandelbrot.c` creates a mandelbrot set by splitting the image into 
 The output is designed to be piped into ImageMagick's convert program.
 As this can cope with the pixels given in any order, the threads can write to standard-output, with worrying about how the data gets interleaved.
 
-```bash
-make color-mandelbrot.png
-```
+   ```bash
+   make color-mandelbrot.png
+   ```
 
 ### Shell scripts
 As an example of shell-script use, there are two scripts in parallel with `make`.  The script `ckconv` checks if ImageMagick is installed, it not uses `apt` to install the imagemagick package.
@@ -22,3 +22,15 @@ As an example of shell-script use, there are two scripts in parallel with `make`
 ### Makefile
 The makefile is a (better) option as make can handle a lot of the dependencies much better that a shell script can.
 
+## Character frequency counter
+This example reads in text from a file and counts the numbers of each character found in it.
+The program has two threads, one does the counting and the other updates the display and progress meter.
+They have shared global variables that are used for the comminication.
+
+## Sums numbers
+`summation.c` is a simple
+charfrequency.c
+fork_ex.c
+mandelbrot.c
+thread_ex.c
+threadparam.c
