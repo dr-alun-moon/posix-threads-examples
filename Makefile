@@ -2,11 +2,13 @@
 CFLAGS=-g -pthread
 LDLIBS=-lm
 
-all: binaries images run
 
-binaries: fork_ex thread_ex summation mandelbrot charfrequency
-images: colour-mandelbrot.png
-run: count
+binaries= fork_ex thread_ex summation mandelbrot charfrequency\
+	threadparam
+images= colour-mandelbrot.png
+run= count
+
+all: $(binaries) $(images) $(run)
 
 mandelbrot.png: PATH:=.:$(PATH)
 mandelbrot.png: mandelbrot 
@@ -22,10 +24,11 @@ colourmap.png:
 colour-mandelbrot.png: mandelbrot.png colourmap.png
 	convert mandelbrot.png \( colourmap.png \) -clut colour-mandelbrot.png
 
+count: PATH:=.:$(PATH)
 count: charfrequency
 	charfrequency the-sign-of-four.txt
 
 .PHONY: clean
 clean:
-	rm -f fork_ex thread_ex summation mandelbrot charfrequency 
-	rm -f mandelbrot.png colourmap.png colour-mandelbrot.png
+	rm -f $(binaries)
+	rm -f $(images)
