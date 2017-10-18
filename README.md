@@ -28,9 +28,8 @@ The program has two threads, one does the counting and the other updates the dis
 They have shared global variables that are used for the comminication.
 
 ## Sums numbers
-`summation.c` is a simple
-charfrequency.c
-fork_ex.c
-mandelbrot.c
-thread_ex.c
-threadparam.c
+`summation.c` is a simple partition of adding up numbers into sections each handled by one thread.
+
+## Thread Parameters
+The `threadparam.c` program demonstrates how to pass parameters to threads using pointers-to-structures, and how to recover the results.
+
