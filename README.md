@@ -33,3 +33,9 @@ They have shared global variables that are used for the comminication.
 ## Thread Parameters
 The `threadparam.c` program demonstrates how to pass parameters to threads using pointers-to-structures, and how to recover the results.
 
+## Passing numbers into and out of a thread
+The `threadnum.c` example shows how a single integer can be passsed to the thread (via pointers).  The returned value works here because the thread has the result in a local static variable, who's existence does not depend on the thread being active.
+
+If the local variable was not static it would be found on the stack.  
+When the thread exits, that part of the stack may be reclaimed and resued by the time the value was read from that address.
+
